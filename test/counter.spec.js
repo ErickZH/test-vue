@@ -1,9 +1,8 @@
 import { mount } from 'vue-test-utils';
-import Counter from '../src/components/Counter.js';
+import Counter from '../src/components/Counter.vue';
 import expect from 'expect';
 
 describe ('Counter', () => {
-
     let wrapper;
 
     beforeEach(() => {
@@ -15,7 +14,6 @@ describe ('Counter', () => {
     });
 
     it ('increments the count when the button is clicked', () => {
-
         expect(wrapper.vm.count).toBe(0);
 
         wrapper.find('button').trigger('click');
@@ -30,4 +28,5 @@ describe ('Counter', () => {
 
         expect(wrapper.find('.count').html()).toContain(1);
     });
+
 });
