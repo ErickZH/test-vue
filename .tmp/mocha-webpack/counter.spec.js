@@ -8928,7 +8928,7 @@ module.exports = arrayReduce;
 /* 39 */
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["vue-template-compiler@2.4.4","/Users/erick/projects/laracast/testingvue/episode-2"]],"_development":true,"_from":"vue-template-compiler@2.4.4","_id":"vue-template-compiler@2.4.4","_inBundle":false,"_integrity":"sha512-XdHsNi8Z5WqwuFl/Z5eLKgE2DOEEOdMk1aA459uSgvwyy+pjKLBlQWsUpAtoR6o6Wmpujw6NtinAUGuqSTituQ==","_location":"/vue-template-compiler","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"vue-template-compiler@2.4.4","name":"vue-template-compiler","escapedName":"vue-template-compiler","rawSpec":"2.4.4","saveSpec":null,"fetchSpec":"2.4.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz","_spec":"2.4.4","_where":"/Users/erick/projects/laracast/testingvue/episode-2","author":{"name":"Evan You"},"bugs":{"url":"https://github.com/vuejs/vue/issues"},"dependencies":{"de-indent":"^1.0.2","he":"^1.1.0"},"description":"template compiler for Vue 2.0","homepage":"https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#readme","keywords":["vue","compiler"],"license":"MIT","main":"index.js","name":"vue-template-compiler","repository":{"type":"git","url":"git+https://github.com/vuejs/vue.git"},"version":"2.4.4"}
+module.exports = {"_args":[["vue-template-compiler@2.4.4","/home/developer/projects/test-vue"]],"_development":true,"_from":"vue-template-compiler@2.4.4","_id":"vue-template-compiler@2.4.4","_inBundle":false,"_integrity":"sha512-XdHsNi8Z5WqwuFl/Z5eLKgE2DOEEOdMk1aA459uSgvwyy+pjKLBlQWsUpAtoR6o6Wmpujw6NtinAUGuqSTituQ==","_location":"/vue-template-compiler","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"vue-template-compiler@2.4.4","name":"vue-template-compiler","escapedName":"vue-template-compiler","rawSpec":"2.4.4","saveSpec":null,"fetchSpec":"2.4.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz","_spec":"2.4.4","_where":"/home/developer/projects/test-vue","author":{"name":"Evan You"},"bugs":{"url":"https://github.com/vuejs/vue/issues"},"dependencies":{"de-indent":"^1.0.2","he":"^1.1.0"},"description":"template compiler for Vue 2.0","homepage":"https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#readme","keywords":["vue","compiler"],"license":"MIT","main":"index.js","name":"vue-template-compiler","repository":{"type":"git","url":"git+https://github.com/vuejs/vue.git"},"version":"2.4.4"}
 
 /***/ }),
 /* 40 */
@@ -8956,12 +8956,37 @@ describe ('Counter', () => {
         __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.vm.count).toBe(0);
     });
 
-    it ('increments the count when the button is clicked', () => {
+    it ('increments the count when the increment button is clicked', () => {
         __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.vm.count).toBe(0);
 
-        wrapper.find('button').trigger('click');
+        wrapper.find('.increment').trigger('click');
 
         __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.vm.count).toBe(1);
+    });
+
+    it ('decrements the count when the decrement button is clicked', () => {
+        // expect(wrapper.vm.count).toBe(0);
+
+        // wrapper.find('.increment').trigger('click'); // 1
+        // wrapper.find('.increment').trigger('click'); // 2
+
+        wrapper.setData({ count: 5 });
+
+        wrapper.find('.decrement').trigger('click'); // 4
+
+        __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.vm.count).toBe(4);
+    });
+
+    it.only ('never goes below 0', () => {
+        __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.vm.count).toBe(0);
+
+        __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.find('.decrement').hasStyle('display', 'none')).toBe(true);
+
+        wrapper.setData({ count: 1 });
+
+        __WEBPACK_IMPORTED_MODULE_2_expect___default()(wrapper.find('.decrement').hasStyle('display', 'none')).toBe(false);
+        
+        // expect(wrapper.vm.count).toBe(0);
     });
 
     it ('presents the current count', () => {
@@ -17524,6 +17549,7 @@ module.exports = function normalizeComponent (
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     data () {
@@ -17552,6 +17578,7 @@ var render = function() {
     _c(
       "button",
       {
+        staticClass: "increment",
         on: {
           click: function($event) {
             _vm.count++
@@ -17559,6 +17586,27 @@ var render = function() {
         }
       },
       [_vm._v("Increment")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.count > 0,
+            expression: "count > 0"
+          }
+        ],
+        staticClass: "decrement",
+        on: {
+          click: function($event) {
+            _vm.count--
+          }
+        }
+      },
+      [_vm._v("Decrement")]
     )
   ])
 }

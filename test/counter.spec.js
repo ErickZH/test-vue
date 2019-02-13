@@ -13,12 +13,37 @@ describe ('Counter', () => {
         expect(wrapper.vm.count).toBe(0);
     });
 
-    it ('increments the count when the button is clicked', () => {
+    it ('increments the count when the increment button is clicked', () => {
         expect(wrapper.vm.count).toBe(0);
 
-        wrapper.find('button').trigger('click');
+        wrapper.find('.increment').trigger('click');
 
         expect(wrapper.vm.count).toBe(1);
+    });
+
+    it ('decrements the count when the decrement button is clicked', () => {
+        // expect(wrapper.vm.count).toBe(0);
+
+        // wrapper.find('.increment').trigger('click'); // 1
+        // wrapper.find('.increment').trigger('click'); // 2
+
+        wrapper.setData({ count: 5 });
+
+        wrapper.find('.decrement').trigger('click'); // 4
+
+        expect(wrapper.vm.count).toBe(4);
+    });
+
+    it.only ('never goes below 0', () => {
+        expect(wrapper.vm.count).toBe(0);
+
+        expect(wrapper.find('.decrement').hasStyle('display', 'none')).toBe(true);
+
+        wrapper.setData({ count: 1 });
+
+        expect(wrapper.find('.decrement').hasStyle('display', 'none')).toBe(false);
+        
+        // expect(wrapper.vm.count).toBe(0);
     });
 
     it ('presents the current count', () => {
