@@ -16,7 +16,7 @@ describe('Remiders', () => {
     it ('can add reminders', () => {
         addReminder('Go to the store');
 
-        expect(wrapper.find('ul').text()).toContain('Go to the store');
+        expect(remindersList()).toContain('Go to the store');
     });
 
     it ('can remove any reminder', () => {
@@ -28,6 +28,7 @@ describe('Remiders', () => {
         deleteButton.trigger('click');
 
         expect(remindersList()).not.toContain('Go to the store');
+        expect(remindersList()).toContain('Finish screencast');
     });
 
     function addReminder (body) {
